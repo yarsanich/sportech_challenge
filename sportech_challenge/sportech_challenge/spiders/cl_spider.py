@@ -25,7 +25,7 @@ class CloddsSpider(scrapy.Spider):
 
     def parse(self, response):
         self.driver.get(response.url)
-        title = response.url.split("/")[-2]
+        title = self.driver.title
         page = self.driver.page_source
         filename = '{}.html'.format(title)
         with open(filename, 'w') as f:
