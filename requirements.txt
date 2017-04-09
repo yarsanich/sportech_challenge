@@ -1,2 +1,3 @@
+Selenium
 cryptography
 Scrapy == 1.3.3

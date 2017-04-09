@@ -1,12 +1,16 @@
 import scrapy
+from selenium import webdriver
 
 
 class CloddsSpider(scrapy.Spider):
     name = "clodds"
 
+    def __init__(self):
+        self.driver = webdriver.Firefox()
+
     def start_requests(self):
         urls = [
-            'http://sports.williamhill.com/bet/en-gb/betting/g/9067/Outright.html',
+            'http://sports.williamhill.com/bet/en-gb/betting/e/9380759/Champions+League+2016+17+-+Outright.html',
             'http://www.paddypower.com/football/euro-football/champions-league',
             'https://www.21bet.co.uk/sportsbook/SOCCER/EU_CL/269006/',
             'https://www.spreadex.com/sports/en-GB/spread-betting/Football-European/Champions-League/Champions-League-2016-17/p461635',
@@ -20,8 +24,10 @@ class CloddsSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        page = response.url.split("/")[-2]
-        filename = 'quotes-%s.html' % page
-        with open(filename, 'wb') as f:
-            f.write(response.body)
+        self.driver.get(response.url)
+        title = response.url.split("/")[-2]
+        page = self.driver.page_source
+        filename = '{}.html'.format(title)
+        with open(filename, 'w') as f:
+            f.write(page)
         self.log('Saved file %s' % filename)
