@@ -1,1 +1,4 @@
-First of all you need get lib gcc libffi-devel python-devel openssl-devel if you havent
+First of all you need get lib gcc libffi-devel python-devel openssl-devel if you havent.
+Dont forget to isntall https://github.com/mozilla/geckodriver/releases
+
+scrapy crawl clodds
