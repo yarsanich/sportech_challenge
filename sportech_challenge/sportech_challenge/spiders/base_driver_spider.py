@@ -10,10 +10,6 @@ class BaseDriverSpider(scrapy.Spider):
         self.driver = webdriver.Firefox()
         super().__init__()
 
-    def __del__(self):
-        self.driver.stop()
-        super().__del__()
-
     def parse(self, response):
         self.driver.get(response.url)
         selector = Selector(text=self.driver.page_source)
